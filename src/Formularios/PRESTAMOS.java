@@ -11,14 +11,15 @@ import com.toedter.calendar.JDateChooser;
 
 
 public class PRESTAMOS extends javax.swing.JFrame {
-
     Conexion cc = new Conexion();
     Connection con = cc.conexion();
     public PRESTAMOS() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("REGISTRAR PRESTAMOS");
     }
-
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -341,7 +342,7 @@ public class PRESTAMOS extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -361,16 +362,14 @@ public class PRESTAMOS extends javax.swing.JFrame {
                             .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addGap(108, 108, 108)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -432,78 +431,70 @@ public class PRESTAMOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
+        super.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-            public void insertarDatos()
-    {
-        
-        
+    public void insertarDatos() { 
        try {
-                String SQL = "INSERT INTO clientes (nombreCompleto,tipoDocumento,numeroDocumento,direccion,ciudad,correo,numeroTelefono,fechaRegistro)"
-                + "VALUES(?,?,?,?,?,?,?,?)";
-                PreparedStatement pst = con.prepareStatement(SQL);
-                pst.setString(1,txtNombreCompleto.getText());
-                int seleccionado = cbTipoDocumento.getSelectedIndex();
-                pst.setString(2,cbTipoDocumento.getItemAt(seleccionado));
-                pst.setString(3,txtNumeroDocumento.getText());
-                pst.setString(4,txtDireccion.getText());
-                pst.setString(5,txtCiudad.getText());
-                pst.setString(6,txtCorreo.getText());
-                pst.setString(7,txtTelefono.getText());
-                //pst.setString(8,txtNumeroDocumento.getText());
-                //String fecha = jdFechaRegistro.getDateEditor()
-                pst.setString(8,((JTextField)jdFechaRegistro.getDateEditor().getUiComponent()).getText());
-                pst.execute();
-                System.out.println("REGISTRO EXITOSO!!!");
-                
+            String SQL = "INSERT INTO clientes (nombreCompleto,tipoDocumento,numeroDocumento,direccion,ciudad,correo,numeroTelefono,fechaRegistro)"
+            + "VALUES(?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(SQL);
+            pst.setString(1,txtNombreCompleto.getText());
+            int seleccionado = cbTipoDocumento.getSelectedIndex();
+            pst.setString(2,cbTipoDocumento.getItemAt(seleccionado));
+            pst.setString(3,txtNumeroDocumento.getText());
+            pst.setString(4,txtDireccion.getText());
+            pst.setString(5,txtCiudad.getText());
+            pst.setString(6,txtCorreo.getText());
+            pst.setString(7,txtTelefono.getText());
+            //pst.setString(8,txtNumeroDocumento.getText());
+            //String fecha = jdFechaRegistro.getDateEditor()
+            pst.setString(8,((JTextField)jdFechaRegistro.getDateEditor().getUiComponent()).getText());
+            pst.execute();
+            System.out.println("REGISTRO EXITOSO!!!"); 
        } catch (SQLException e) {
            System.out.println("ERROR DE REGISTRO..."+e.getMessage());
        }
     }
     
-     public void registrarPrestamo()//Seguir trabajando aquí
-    {
-
+     public void registrarPrestamo() { //Seguir trabajando aquí
        try {
-                String SQL = "INSERT INTO  prestamos  VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		PreparedStatement pst = con.prepareStatement(SQL);
-                pst.setString(1,((JTextField)jdFechaRegistro.getDateEditor().getUiComponent()).getText());
-                pst.setString(2,((JTextField)jdFechaInicio.getDateEditor().getUiComponent()).getText());
-                double montoPrestamo = Double.parseDouble(txtMontoPrestamo.getText());
-                pst.setString(3,txtMontoPrestamo.getText());
-                double interes = Double.parseDouble(txtInteres.getText());
-                pst.setString(4,txtInteres.getText());
-                int numeroCuotas = Integer.parseInt(txtCuotas.getText());
-                pst.setString(5,txtCuotas.getText());
-                double Cuotas = Double.parseDouble(txtMontoCuotas.getText());
-                pst.setString(6,txtMontoCuotas.getText());
-                double totalInteres = Double.parseDouble(txtTotalIntereses.getText());
-                pst.setString(7,txtTotalIntereses.getText());
-                double montoPagar = Double.parseDouble(txtMontoPagar.getText());
-                pst.setString(8,txtMontoPagar.getText());
-                pst.setString(9,txtNombreCompleto.getText());
-                int seleccionado = cbTipoDocumento.getSelectedIndex();
-                pst.setString(10,cbTipoDocumento.getItemAt(seleccionado));
-                pst.setString(11,txtNumeroDocumento.getText());
-                pst.setString(12,txtDireccion.getText());
-                pst.setString(13,txtCiudad.getText());
-                pst.setString(14,txtCorreo.getText());
-                pst.setString(15,txtTelefono.getText());
-                int formaPago = cbFormaPago.getSelectedIndex();
-                pst.setString(16,cbFormaPago.getItemAt(formaPago));
-                int tipoMoneda = cbTipoMoneda.getSelectedIndex();
-                pst.setString(17,cbTipoMoneda.getItemAt(tipoMoneda));
-                pst.execute();
-                System.out.println("REGISTRO EXITOSO!!!");
-                
+            String SQL = "INSERT INTO  prestamos  VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = con.prepareStatement(SQL);
+            pst.setString(1,((JTextField)jdFechaRegistro.getDateEditor().getUiComponent()).getText());
+            pst.setString(2,((JTextField)jdFechaInicio.getDateEditor().getUiComponent()).getText());
+            double montoPrestamo = Double.parseDouble(txtMontoPrestamo.getText());
+            pst.setString(3,txtMontoPrestamo.getText());
+            double interes = Double.parseDouble(txtInteres.getText());
+            pst.setString(4,txtInteres.getText());
+            int numeroCuotas = Integer.parseInt(txtCuotas.getText());
+            pst.setString(5,txtCuotas.getText());
+            double Cuotas = Double.parseDouble(txtMontoCuotas.getText());
+            pst.setString(6,txtMontoCuotas.getText());
+            double totalInteres = Double.parseDouble(txtTotalIntereses.getText());
+            pst.setString(7,txtTotalIntereses.getText());
+            double montoPagar = Double.parseDouble(txtMontoPagar.getText());
+            pst.setString(8,txtMontoPagar.getText());
+            pst.setString(9,txtNombreCompleto.getText());
+            int seleccionado = cbTipoDocumento.getSelectedIndex();
+            pst.setString(10,cbTipoDocumento.getItemAt(seleccionado));
+            pst.setString(11,txtNumeroDocumento.getText());
+            pst.setString(12,txtDireccion.getText());
+            pst.setString(13,txtCiudad.getText());
+            pst.setString(14,txtCorreo.getText());
+            pst.setString(15,txtTelefono.getText());
+            int formaPago = cbFormaPago.getSelectedIndex();
+            pst.setString(16,cbFormaPago.getItemAt(formaPago));
+            int tipoMoneda = cbTipoMoneda.getSelectedIndex();
+            pst.setString(17,cbTipoMoneda.getItemAt(tipoMoneda));
+            pst.execute();
+            System.out.println("REGISTRO EXITOSO!!!");   
        } catch (SQLException e) {
            System.out.println("ERROR DE REGISTRO... " +e.getMessage());
            //JOptionPane.showMessageDialog(null,"ERROR DE REGISTRO..."+e.getMessage());
        }
     }
        
-    
     /**
      * @param args the command line arguments
      */

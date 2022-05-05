@@ -3,11 +3,11 @@ package Formularios;
 import javax.swing.ImageIcon;
 
 public class MENU extends javax.swing.JFrame {
-
     public MENU() {
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/Im_Inicio.png")).getImage());
+        this.setTitle("MENU PRINCIPAL");
     }
 
 

@@ -17,10 +17,10 @@ public class Conexion {
             conectar = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion Establecida");
             //JOptionPane.showMessageDialog(null,"Conexion Establecida");
-            
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,"ERROR: "+e);
         }
+        
         return conectar;
     }
 }

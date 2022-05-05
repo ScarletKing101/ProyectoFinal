@@ -17,17 +17,16 @@ import javax.swing.JTextField;
 public class CLIENTES extends javax.swing.JFrame {
    Conexion cc = new Conexion();
    Connection con = cc.conexion();
-   
-    
+     
     public CLIENTES() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("REGISTRAR CLIENTES");
         mostrarDatos();
     }
     
-        public void insertarDatos()
-    {
-       try {
+        public void insertarDatos() {
+            try {
                 String SQL = "INSERT INTO clientes (nombreCompleto,tipoDocumento,numeroDocumento,direccion,ciudad,correo,numeroTelefono,fechaRegistro)"
                 + "VALUES(?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(SQL);
@@ -46,15 +45,12 @@ public class CLIENTES extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"REGISTRO EXITOSO!!!");
                 
        } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null,"ERROR DE REGISTRO..."+e.getMessage());
+           JOptionPane.showMessageDialog(null,"ERROR DE REGISTRO..." + e.getMessage());
        }
     }
         
-                public void actualizarDatos()
-    {
-       
-
-       try {
+        public void actualizarDatos() {
+            try {
                 String SQL = "UPDATE clientes SET nombreCompleto=?,tipoDocumento=?,numeroDocumento=?,"
                         + "direccion=?,ciudad=?,correo=?,numeroTelefono=? WHERE idCliente=?";
                 int filaSeleccionada = tablaClientes.getSelectedRow();
@@ -80,7 +76,7 @@ public class CLIENTES extends javax.swing.JFrame {
     }
 
 
-        public void limpiarCajas(){
+        public void limpiarCajas() {
         txtNombre.setText("");
         cbTipoDocumento.setSelectedItem(null);
         txtNumeroDocumento.setText("");
@@ -416,50 +412,50 @@ public class CLIENTES extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      MENU OBJMenu = new MENU();
-      OBJMenu.setVisible(true);
+//        MENU OBJMenu = new MENU();
+//        OBJMenu.setVisible(true);
+        super.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-       public void eliminarRegistro(){
-       int filaSeleccionada = tablaClientes.getSelectedRow();
+    public void eliminarRegistro() {
+        int filaSeleccionada = tablaClientes.getSelectedRow();
        
-       try{
-           
+        try {
            String SQL = "delete from clientes where idCliente="+tablaClientes.getValueAt(filaSeleccionada,0);
            
            Statement st = con.createStatement();
            int n = st.executeUpdate(SQL);
            
-           if(n>=0){
+           if (n >= 0) {
                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO");
            }
        
+       } catch (Exception e) {
+                 System.out.print("ERROR AL ELIMINAR REGISTRO" + e.getMessage());
        }
-       catch(Exception e){
-                 System.out.print("ERROR AL ELIMINAR REGISTRO"+e.getMessage());
-       }
-   }
+    }
+    
     public static void main(String args[]) {
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CLIENTES().setVisible(true);
             }
         });
     }
+    
     public void mostrarDatos() {
         
-        String[] titulos ={"idCliente","nombreCompleto","tipoDocumento","numeroDocumento","Direccion","Ciudad","Correo","numeroTelefono","fechaRegistro"};
+        String[] titulos = {"idCliente","nombreCompleto","tipoDocumento","numeroDocumento","Direccion","Ciudad","Correo","numeroTelefono","fechaRegistro"};
         String[] registros = new String[9];
-        DefaultTableModel modelo = new DefaultTableModel(null,titulos);
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
         
         String SQL ="SELECT * FROM clientes";
         
-        try{
+        try {
             Statement st = con.createStatement();
             ResultSet rs =st.executeQuery(SQL);
-       while (rs.next()){
-           
+            
+            while (rs.next()) {
                 registros[0]=rs.getString("idCliente");
                 registros[1]=rs.getString("nombreCompleto");
                 registros[2]=rs.getString("tipoDocumento");
@@ -474,7 +470,7 @@ public class CLIENTES extends javax.swing.JFrame {
        }
         
             tablaClientes.setModel(modelo);
-        }catch(Exception e){
+        } catch(Exception e) {
             JOptionPane.showMessageDialog(null,"ERROR AL MOSTRAR DATOS"+ e.getMessage());
         }
     }
